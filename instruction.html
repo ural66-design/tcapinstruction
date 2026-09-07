@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция по подключению</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .sticky-progress {
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+        .progress {
+            background: #e0e0e0;
+            border-radius: 20px;
+            height: 20px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #81c784);
+            width: 0%;
+            transition: width 0.4s;
+        }
+        .progress-text {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            font-size: 26px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .intro {
+            background: #f0f7ff;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .howto {
+            background: #eef9ee;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .step {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .step-header {
+            background: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .step-header:hover {
+            background: #eceff1;
+        }
+        .step-number {
+            background: #333;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+        .step-title {
+            flex-grow: 1;
+        }
+        .step-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .step-body {
+            padding: 15px;
+            display: none;
+        }
+        .step.open .step-body {
+            display: block;
+        }
+        .step.completed {
+            border-color: #4caf50;
+        }
+        .step.locked {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .step.locked .step-header {
+            cursor: not-allowed;
+        }
+        .step.completed .step-header {
+            cursor: default; /* не кликается, если выполнен */
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .action-btn {
+            display: block;
+            background: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .action-btn:hover {
+            background: #45a049;
+        }
+        .mt4-block {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            display: none;
+        }
+        .mt4-header {
+            background: #f8f9fa;
+            padding: 15px;
+            font-weight: 600;
+        }
+        .mt4-body {
+            padding: 15px;
+        }
+        .btn-download {
+            display: inline-block;
+            background: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px 5px 5px 0;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .btn-download:hover {
+            background: #357abd;
+        }
+        .final-msg {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .final-msg.show {
+            display: block;
+        }
+        .support {
+            background: #fce4ec;
+            border-left: 4px solid #f44336;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            .step-header {
+                flex-wrap: wrap;
+            }
+            .step-title {
+                margin-bottom: 5px;
+            }
+            .step-checkbox-label {
+                margin-left: 0;
+                margin-top: 5px;
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+        @media (min-width: 601px) and (max-width: 900px) {
+            .container {
+                width: 90%;
+            }
+        }
+        @media (min-width: 901px) {
+            .container {
+                max-width: 700px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🚀 Инструкция по подключению к копитрейдингу</h1>
+
+    <div class="intro">
+        <strong>Вводная информация:</strong> Чтобы подключиться к сервису копирования сделок, нужно зарегистрироваться у брокера, настроить правила копирования, создать счёт и пополнить его на сумму от $1000. После пополнения копирование начнётся автоматически.
+    </div>
+
+    <div class="howto">
+        <strong>Как пользоваться инструкцией:</strong> последовательно выполняйте шаги. После завершения каждого шага отметьте галочку <strong>«Выполнено»</strong> в его заголовке — это автоматически откроет следующий шаг.
+    </div>
+
+    <div class="sticky-progress">
+        <div class="progress">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0 / 3 шагов</div>
+    </div>
+
+    <!-- Шаг 1 -->
+    <div class="step" id="step1">
+        <div class="step-header" onclick="toggleStep(1)">
+            <span class="step-number">1</span>
+            <span class="step-title">Регистрация у брокера</span>
+            <label class="step-checkbox-label">
+                <input type="checkbox" class="checkbox" onclick="completeStep(1, event)">
+                Выполнено
+            </label>
+        </div>
+        <div class="step-body">
+            <ul>
+                <li>Укажите страну проживания, электронную почту и пароль.</li>
+                <li>Либо авторизуйтесь через аккаунт Google/Facebook.</li>
+                <li>⚠️ <strong>Нет вашей страны в списке?</strong> — выберите ближайшую; при проверке документов система укажет верную.</li>
+            </ul>
+            <a href="https://account.markets4you.com/ru/user-registration/?affid=atpl6al" class="action-btn" target="_blank">Перейти к регистрации</a>
+        </div>
+    </div>
+
+    <!-- Шаг 2 -->
+    <div class="step" id="step2">
+        <div class="step-header" onclick="toggleStep(2)">
+            <span class="step-number">2</span>
+            <span class="step-title">Верификация</span>
+            <label class="step-checkbox-label">
+                <input type="checkbox" class="checkbox" onclick="completeStep(2, event)">
+                Выполнено
+            </label>
+        </div>
+        <div class="step-body">
+            <div class="warning">⚠️ Требования по верификации зависят от страны: где-то нужно пройти сразу, где-то — только при пополнении счёта (для разблокировки доп. способов). Если после перехода ничего не увидите — не пугайтесь, для вас верификация будет на этапе пополнения.</div>
+            <div class="warning">⚠️ Планируете пополнять криптовалютой? Верификацию можно пройти позже — при первом выводе средств.</div>
+            <ul>
+                <li>Подтвердите личность: паспорт или водительское удостоверение.</li>
+                <li>Подтвердите адрес: любой документ с ФИО и адресом (коммунальные счета, интернет, мобильная связь, банковская выписка).</li>
+            </ul>
+            <a href="https://account.markets4you.com/ru/user/settings/verification/sumsub" class="action-btn" target="_blank">Пройти верификацию</a>
+        </div>
+    </div>
+
+    <!-- Шаг 3 -->
+    <div class="step" id="step3">
+        <div class="step-header" onclick="toggleStep(3)">
+            <span class="step-number">3</span>
+            <span class="step-title">Настройка копирования и пополнение счёта</span>
+            <label class="step-checkbox-label">
+                <input type="checkbox" class="checkbox" onclick="completeStep(3, event)">
+                Выполнено
+            </label>
+        </div>
+        <div class="step-body">
+            <ul>
+                <li>Введите сумму инвестирования <strong>в долларах США (USD)</strong> — <strong>не менее $1000</strong>.</li>
+                <li><strong>Обязательно:</strong> откройте «Больше настроек» → включите «Выполнить масштабирование после того, как лидер закроет свои сделки» (остальные параметры не трогать).</li>
+                <li>Прокрутите вниз → в разделе «Счёт»: «Создать новый счёт» → «Копировать» — откроется страница пополнения.</li>
+                <li>Пополните счёт на указанную сумму (не менее $1000).</li>
+                <li>Выберите способ: банковская карта или криптовалюта.</li>
+                <li>Нет нужного способа — система предложит верификацию для разблокировки.</li>
+                <li>После пополнения копирование начнётся автоматически.</li>
+            </ul>
+            <a href="https://account.markets4you.com/ru/copy-trading/leader/10363048/overview" class="action-btn" target="_blank">Открыть профиль лидера</a>
+        </div>
+    </div>
+
+    <!-- Финальное сообщение -->
+    <div class="final-msg" id="finalMsg">
+        🎉 <strong>Вы успешно подключены!</strong><br>
+        Теперь вы можете следить за результатами на сайте брокера или подключить MetaTrader 4 (по желанию).
+    </div>
+
+    <!-- Блок МТ4 -->
+    <div class="mt4-block" id="mt4Block">
+        <div class="mt4-header">📱 Подключение счёта к MetaTrader 4 (необязательно)</div>
+        <div class="mt4-body">
+            <p>На указанную при регистрации электронную почту придёт письмо (возможно в спам) с данными от нового счёта. Вам понадобятся:</p>
+            <ul>
+                <li><strong>Логин</strong> (номер счёта)</li>
+                <li><strong>Инвесторский пароль</strong> (только для чтения)</li>
+                <li><strong>Название сервера</strong> (например: EGlobalTrade-Classic3)</li>
+            </ul>
+            <p>Скачайте платформу для вашего устройства:</p>
+            <div>
+                <a class="btn-download" href="https://download.mql5.com/cdn/web/eglobal.trade.and/mt4/eglobal4setup.exe" target="_blank">💻 Windows</a>
+                <a class="btn-download" href="https://apps.apple.com/us/app/metatrader-4/id496212596" target="_blank">🍎 iOS</a>
+                <a class="btn-download" href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader4" target="_blank">🤖 Android</a>
+            </div>
+            <div style="background:#f9f9f9; padding:10px; border-radius:6px; margin-top:15px;">
+                <strong>Как подключиться (пошагово):</strong>
+                <p><strong>📱 Android:</strong></p>
+                <ul>
+                    <li>Откройте приложение MetaTrader 4.</li>
+                    <li>Нажмите меню ≡ (слева вверху) ➔ «Управление счетами» ➔ значок «+».</li>
+                    <li>Выберите «Подключиться к существующему счету».</li>
+                    <li>В строке поиска введите название Сервера и выберите его из списка.</li>
+                    <li>Укажите Логин и Инвесторский пароль ➔ нажмите «Войти».</li>
+                </ul>
+                <p><strong>🍎 iOS (iPhone):</strong></p>
+                <ul>
+                    <li>Откройте приложение MetaTrader 4.</li>
+                    <li>Перейдите в «Настройки» (внизу справа) ➔ нажмите на «Торговый счет» ➔ значок «+».</li>
+                    <li>Выберите «Подключиться к существующему счету».</li>
+                    <li>В поиске найдите и выберите название Сервера.</li>
+                    <li>Укажите Логин и Инвесторский пароль ➔ нажмите «Войти».</li>
+                </ul>
+                <p><strong>💻 Windows (ПК):</strong></p>
+                <ul>
+                    <li>Запустите терминал MetaTrader 4.</li>
+                    <li>В верхнем левом меню нажмите Файл ➔ «Подключиться к торговому счету».</li>
+                    <li>Введите Логин и Инвесторский пароль.</li>
+                    <li>В поле Сервер выберите нужный сервер из списка (или введите его имя вручную).</li>
+                    <li>Нажмите «Логин».</li>
+                </ul>
+            </div>
+            <p style="margin-top:15px;">💡 <strong>Примечание:</strong> Инвесторский пароль обеспечивает безопасность. Вы сможете в реальном времени видеть открытые позиции, историю сделок и баланс, но функции открытия/закрытия сделок и вывода средств с этим паролем заблокированы.</p>
+        </div>
+    </div>
+
+    <div class="support">🆘 <strong>Техподдержка:</strong> <a href="https://t.me/tcapital_support" target="_blank">@tcapital_support</a></div>
+</div>
+
+<script>
+    let steps = [false, false, false];
+
+    function init() {
+        // Все шаги кроме первого — заблокированы
+        for (let i = 2; i <= 3; i++) {
+            document.getElementById('step' + i).classList.add('locked');
+        }
+        document.getElementById('step1').classList.add('open');
+        document.getElementById('step1').classList.remove('locked');
+    }
+
+    function toggleStep(step) {
+        const stepEl = document.getElementById('step' + step);
+        // Если шаг выполнен или заблокирован — клик игнорируем
+        if (stepEl.classList.contains('completed') || stepEl.classList.contains('locked')) return;
+        
+        // Если шаг открыт — закрываем
+        if (stepEl.classList.contains('open')) {
+            stepEl.classList.remove('open');
+        } else {
+            // Закрываем все шаги, открываем выбранный
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById('step' + i).classList.remove('open');
+            }
+            stepEl.classList.add('open');
+        }
+    }
+
+    function completeStep(step, event) {
+        event.stopPropagation(); // не переключать открытие/закрытие
+        const checked = event.target.checked;
+        steps[step - 1] = checked;
+
+        const stepEl = document.getElementById('step' + step);
+
+        if (checked) {
+            // Отметили выполнение — шаг становится завершённым, сворачивается
+            stepEl.classList.add('completed');
+            stepEl.classList.remove('open');
+
+            // Открываем следующий шаг, если есть
+            if (step < 3) {
+                const nextStep = document.getElementById('step' + (step + 1));
+                nextStep.classList.remove('locked');
+                nextStep.classList.add('open');
+            }
+        } else {
+            // Сняли галочку — снимаем выполнение, сбрасываем все последующие шаги
+            stepEl.classList.remove('completed');
+            // Открываем текущий шаг, чтобы можно было снова отметить
+            stepEl.classList.add('open');
+
+            // Сбрасываем все последующие шаги
+            for (let i = step + 1; i <= 3; i++) {
+                const nextEl = document.getElementById('step' + i);
+                nextEl.classList.remove('completed');
+                nextEl.classList.remove('open');
+                nextEl.classList.add('locked');
+                // Сбрасываем чекбокс
+                const checkbox = nextEl.querySelector('.checkbox');
+                checkbox.checked = false;
+                steps[i - 1] = false;
+            }
+        }
+
+        updateProgress();
+    }
+
+    function updateProgress() {
+        let completedCount = steps.filter(Boolean).length;
+        let total = 3;
+        let percent = (completedCount / total) * 100;
+        document.getElementById('progressFill').style.width = percent + '%';
+        document.getElementById('progressText').innerText = completedCount + ' / ' + total + ' шагов';
+
+        if (completedCount === 3) {
+            document.getElementById('finalMsg').classList.add('show');
+            document.getElementById('mt4Block').style.display = 'block';
+        } else {
+            document.getElementById('finalMsg').classList.remove('show');
+            document.getElementById('mt4Block').style.display = 'none';
+        }
+    }
+
+    init();
+    updateProgress();
+</script>
+</body>
+</html>
