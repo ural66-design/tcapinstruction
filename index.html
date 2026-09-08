@@ -3,457 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Инструкция по подключению</title>
+    <title>T-Capital — Инструкция по подключению</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            padding: 30px;
-        }
-        .sticky-progress {
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(5px);
-            border-radius: 12px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e0e0e0;
-        }
-        .progress {
-            background: #e0e0e0;
-            border-radius: 20px;
-            height: 20px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4caf50, #81c784);
-            width: 0%;
-            transition: width 0.4s;
-        }
-        .progress-text {
-            text-align: center;
-            margin-top: 5px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            font-size: 26px;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-        .intro {
-            background: #f0f7ff;
-            border-left: 4px solid #4a90e2;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .howto {
-            background: #eef9ee;
-            border-left: 4px solid #4caf50;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .step {
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .step-header {
-            background: #f8f9fa;
-            padding: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        .step-header:hover {
-            background: #eceff1;
-        }
-        .step-number {
-            background: #333;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            flex-shrink: 0;
-            font-size: 14px;
-        }
-        .step-title {
-            flex-grow: 1;
-        }
-        .step-checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-            color: #666;
-            cursor: pointer;
-            margin-left: 10px;
-            white-space: nowrap;
-        }
-        .checkbox {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        .step-body {
-            padding: 15px;
-            display: none;
-        }
-        .step.open .step-body {
-            display: block;
-        }
-        .step.completed {
-            border-color: #4caf50;
-        }
-        .step.locked {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        .step.locked .step-header {
-            cursor: not-allowed;
-        }
-        .step.completed .step-header {
-            cursor: default; /* не кликается, если выполнен */
-        }
-        .warning {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .action-btn {
-            display: block;
-            background: #4caf50;
-            color: white;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            margin-top: 15px;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        .action-btn:hover {
-            background: #45a049;
-        }
-        .mt4-block {
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            display: none;
-        }
-        .mt4-header {
-            background: #f8f9fa;
-            padding: 15px;
-            font-weight: 600;
-        }
-        .mt4-body {
-            padding: 15px;
-        }
-        .btn-download {
-            display: inline-block;
-            background: #4a90e2;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin: 5px 5px 5px 0;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-        .btn-download:hover {
-            background: #357abd;
-        }
-        .final-msg {
-            background: #e8f5e9;
-            border: 2px solid #4caf50;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            display: none;
-        }
-        .final-msg.show {
-            display: block;
-        }
-        .support {
-            background: #fce4ec;
-            border-left: 4px solid #f44336;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 4px;
-        }
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 20px;
-            }
-            .step-header {
-                flex-wrap: wrap;
-            }
-            .step-title {
-                margin-bottom: 5px;
-            }
-            .step-checkbox-label {
-                margin-left: 0;
-                margin-top: 5px;
-                width: 100%;
-                justify-content: flex-end;
-            }
-        }
-        @media (min-width: 601px) and (max-width: 900px) {
-            .container {
-                width: 90%;
-            }
-        }
-        @media (min-width: 901px) {
-            .container {
-                max-width: 700px;
-            }
-        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; line-height: 1.6; color: #333; }
+        .container { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 30px; }
+        .lang-switcher { display: flex; justify-content: center; margin-bottom: 20px; gap: 8px; }
+        .lang-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 20px; border: 2px solid #e0e0e0; background: white; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s; color: #333; }
+        .lang-btn:hover { border-color: #4caf50; background: #f0f9f0; }
+        .lang-btn.active { background: #4caf50; color: white; border-color: #4caf50; }
+        .lang-btn svg { width: 20px; height: 14px; border-radius: 2px; }
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { max-width: 120px; height: auto; display: block; margin: 0 auto; }
+        .sticky-progress { position: sticky; top: 10px; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(5px); border-radius: 12px; padding: 10px 15px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; }
+        .progress { background: #e0e0e0; border-radius: 20px; height: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #4caf50, #81c784); width: 0%; transition: width 0.4s; }
+        .progress-text { text-align: center; margin-top: 5px; font-size: 13px; font-weight: bold; color: #333; }
+        h1 { text-align: center; font-size: 24px; margin-top: 0; margin-bottom: 20px; color: #1a237e; }
+        .intro, .howto, .faq-note { background: #f0f7ff; border-left: 4px solid #4a90e2; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .howto { background: #eef9ee; border-left-color: #4caf50; }
+        .faq-note { background: #f0f7ff; border-left-color: #4a90e2; }
+        .step { border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+        .step-header { background: #f8f9fa; padding: 15px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-weight: 600; transition: background 0.3s; }
+        .step-header:hover { background: #eceff1; }
+        .step-number { background: #4caf50; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; font-size: 14px; font-weight: bold; }
+        .step-title { flex-grow: 1; }
+        .step-checkbox-label { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #666; cursor: pointer; margin-left: 10px; white-space: nowrap; }
+        .checkbox { width: 20px; height: 20px; cursor: pointer; accent-color: #4caf50; }
+        .step-body { padding: 15px; display: none; background: #ffffff; }
+        .step.open .step-body { display: block; }
+        .step.completed { border-color: #4caf50; }
+        .step.locked { opacity: 0.6; pointer-events: none; }
+        .step.locked .step-header { cursor: not-allowed; }
+        .step.completed .step-header { cursor: default; }
+        .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+        .action-btn { display: block; background: #4caf50; color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; margin-top: 15px; font-weight: 600; transition: background 0.3s; }
+        .action-btn:hover { background: #45a049; }
+        .faq-block { margin-bottom: 20px; }
+        .faq-title { font-size: 20px; font-weight: 600; margin-bottom: 15px; color: #1a237e; }
+        .faq-item { border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+        .faq-question { background: #f8f9fa; padding: 15px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+        .faq-question:hover { background: #eceff1; }
+        .faq-answer { padding: 15px; display: none; border-top: 1px solid #e0e0e0; font-size: 14px; }
+        .faq-item.open .faq-answer { display: block; }
+        .faq-arrow { transition: transform 0.3s; }
+        .faq-item.open .faq-arrow { transform: rotate(90deg); }
+        .final-msg { background: #e8f5e9; border: 2px solid #4caf50; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 20px; display: none; }
+        .final-msg.show { display: block; }
+        .footer { border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+        .footer-header { background: #f8f9fa; padding: 15px; font-weight: 600; border-bottom: 1px solid #e0e0e0; }
+        .footer-body { padding: 15px; }
+        .support-line { display: flex; align-items: center; margin-bottom: 10px; font-size: 14px; color: #333; }
+        .support-line a { color: #4a90e2; text-decoration: none; font-weight: 600; }
+        .social-links { margin-top: 10px; }
+        .social-links p { margin-bottom: 10px; font-size: 14px; color: #555; }
+        .btn-social { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 6px; text-decoration: none; color: white; font-weight: 600; font-size: 14px; margin: 5px 5px 5px 0; transition: opacity 0.3s; }
+        .btn-social:hover { opacity: 0.85; }
+        .btn-youtube { background: #e53935; }
+        .btn-telegram { background: #0088cc; }
+        .btn-social svg { width: 20px; height: 20px; fill: white; }
+        @media (max-width: 600px) { body { padding: 10px; } .container { padding: 20px; } .step-header { flex-wrap: wrap; } .step-title { margin-bottom: 5px; } .step-checkbox-label { margin-left: 0; margin-top: 5px; width: 100%; justify-content: flex-end; } .lang-switcher { flex-wrap: wrap; } .btn-social { width: 100%; justify-content: center; margin: 5px 0; } }
+        @media (min-width: 601px) and (max-width: 900px) { .container { width: 90%; } }
+        @media (min-width: 901px) { .container { max-width: 700px; } }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🚀 Инструкция по подключению к копитрейдингу</h1>
-
-    <div class="intro">
-        <strong>Вводная информация:</strong> Чтобы подключиться к сервису копирования сделок, нужно зарегистрироваться у брокера, настроить правила копирования, создать счёт и пополнить его на сумму от $1000. После пополнения копирование начнётся автоматически.
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLanguage('ru')">
+            <svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#fff"/><rect width="3" height="1" fill="#0039a6"/><rect y="1" width="3" height="1" fill="#d52b1e"/></svg> Русский
+        </button>
+        <button class="lang-btn" onclick="setLanguage('en')">
+            <svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#012169"/><path d="M0,0 L3,2 M3,0 L0,2" stroke="#fff" stroke-width="0.5"/><path d="M1.5,0 L1.5,2 M0,1 L3,1" stroke="#fff" stroke-width="0.8"/><path d="M1.5,0 L1.5,2 M0,1 L3,1" stroke="#C8102E" stroke-width="0.4"/></svg> English
+        </button>
+        <button class="lang-btn" onclick="setLanguage('es')">
+            <svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#AA151B"/><rect y="0.5" width="3" height="1" fill="#F1BF00"/></svg> Español
+        </button>
     </div>
+    <div class="logo-container"><img src="logo.png" alt="T-Capital" /></div>
+    <h1 data-i18n="title">T-Capital — инструкция по подключению к копитрейдингу</h1>
+    <div class="intro"><strong data-i18n="intro_title">Вводная информация:</strong> <span data-i18n="intro_text">Чтобы подключиться к сервису копирования сделок, нужно зарегистрироваться у брокера, настроить правила копирования, создать счёт и пополнить его на сумму от $1000. После пополнения копирование начнётся автоматически.</span></div>
+    <div class="howto"><strong data-i18n="howto_title">Как пользоваться инструкцией:</strong> <span data-i18n="howto_text">последовательно выполняйте шаги. После завершения каждого шага отметьте галочку «Выполнено» в его заголовке — это автоматически откроет следующий шаг.</span></div>
+    <div class="faq-note"><strong data-i18n="faq_note_label">Рекомендуем</strong> <span data-i18n="faq_note_text">перед началом подключения ознакомиться с разделом FAQ — там собраны ответы на частые вопросы.</span></div>
+    <div class="sticky-progress"><div class="progress"><div class="progress-fill" id="progressFill"></div></div><div class="progress-text" id="progressText">0 / 3</div></div>
 
-    <div class="howto">
-        <strong>Как пользоваться инструкцией:</strong> последовательно выполняйте шаги. После завершения каждого шага отметьте галочку <strong>«Выполнено»</strong> в его заголовке — это автоматически откроет следующий шаг.
-    </div>
-
-    <div class="sticky-progress">
-        <div class="progress">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-text" id="progressText">0 / 3 шагов</div>
-    </div>
-
-    <!-- Шаг 1 -->
-    <div class="step" id="step1">
-        <div class="step-header" onclick="toggleStep(1)">
-            <span class="step-number">1</span>
-            <span class="step-title">Регистрация у брокера</span>
-            <label class="step-checkbox-label">
-                <input type="checkbox" class="checkbox" onclick="completeStep(1, event)">
-                Выполнено
-            </label>
-        </div>
+    <!-- Шаг 1 (СРАЗУ ОТКРЫТ) -->
+    <div class="step open" id="step1">
+        <div class="step-header" onclick="toggleStep(1)"><span class="step-number">1</span><span class="step-title" data-i18n="step1_title">Регистрация у брокера</span><label class="step-checkbox-label"><input type="checkbox" class="checkbox" onclick="completeStep(1, event)"><span data-i18n="step1_checkbox">Выполнено</span></label></div>
         <div class="step-body">
-            <ul>
-                <li>Укажите страну проживания, электронную почту и пароль.</li>
-                <li>Либо авторизуйтесь через аккаунт Google/Facebook.</li>
-                <li>⚠️ <strong>Нет вашей страны в списке?</strong> — выберите ближайшую; при проверке документов система укажет верную.</li>
-            </ul>
-            <a href="https://account.markets4you.com/ru/user-registration/?affid=atpl6al" class="action-btn" target="_blank">Перейти к регистрации</a>
+            <ul><li data-i18n="step1_text1">Укажите страну проживания, электронную почту и пароль.</li><li data-i18n="step1_text2">Либо авторизуйтесь через аккаунт Google/Facebook.</li><li data-i18n="step1_warning">⚠️ Нет вашей страны в списке? — выберите ближайшую; при проверке документов система укажет верную.</li></ul>
+            <a href="https://account.markets4you.com/ru/user-registration/?affid=atpl6al" class="action-btn" target="_blank" data-link="step1_link">Перейти к регистрации</a>
         </div>
     </div>
-
     <!-- Шаг 2 -->
-    <div class="step" id="step2">
-        <div class="step-header" onclick="toggleStep(2)">
-            <span class="step-number">2</span>
-            <span class="step-title">Верификация</span>
-            <label class="step-checkbox-label">
-                <input type="checkbox" class="checkbox" onclick="completeStep(2, event)">
-                Выполнено
-            </label>
-        </div>
+    <div class="step locked" id="step2">
+        <div class="step-header" onclick="toggleStep(2)"><span class="step-number">2</span><span class="step-title" data-i18n="step2_title">Верификация</span><label class="step-checkbox-label"><input type="checkbox" class="checkbox" onclick="completeStep(2, event)"><span data-i18n="step2_checkbox">Выполнено</span></label></div>
         <div class="step-body">
-            <div class="warning">⚠️ Требования по верификации зависят от страны: где-то нужно пройти сразу, где-то — только при пополнении счёта (для разблокировки доп. способов). Если после перехода ничего не увидите — не пугайтесь, для вас верификация будет на этапе пополнения.</div>
-            <div class="warning">⚠️ Планируете пополнять криптовалютой? Верификацию можно пройти позже — при первом выводе средств.</div>
-            <ul>
-                <li>Подтвердите личность: паспорт или водительское удостоверение.</li>
-                <li>Подтвердите адрес: любой документ с ФИО и адресом (коммунальные счета, интернет, мобильная связь, банковская выписка).</li>
-            </ul>
-            <a href="https://account.markets4you.com/ru/user/settings/verification/sumsub" class="action-btn" target="_blank">Пройти верификацию</a>
+            <div class="warning" data-i18n="step2_warning1">⚠️ Требования по верификации зависят от страны: где-то нужно пройти сразу, где-то — только при пополнении счёта. Если после перехода ничего не увидите — не пугайтесь, для вас верификация будет на этапе пополнения.</div>
+            <div class="warning" data-i18n="step2_warning2">⚠️ Планируете пополнять криптовалютой? Верификацию можно пройти позже — при первом выводе средств.</div>
+            <ul><li data-i18n="step2_text1">Подтвердите личность: паспорт или водительское удостоверение.</li><li data-i18n="step2_text2">Подтвердите адрес: любой документ с ФИО и адресом (коммунальные счета, интернет, мобильная связь, банковская выписка).</li></ul>
+            <a href="https://account.markets4you.com/ru/user/settings/verification/sumsub" class="action-btn" target="_blank" data-link="step2_link">Пройти верификацию</a>
         </div>
     </div>
-
     <!-- Шаг 3 -->
-    <div class="step" id="step3">
-        <div class="step-header" onclick="toggleStep(3)">
-            <span class="step-number">3</span>
-            <span class="step-title">Настройка копирования и пополнение счёта</span>
-            <label class="step-checkbox-label">
-                <input type="checkbox" class="checkbox" onclick="completeStep(3, event)">
-                Выполнено
-            </label>
-        </div>
+    <div class="step locked" id="step3">
+        <div class="step-header" onclick="toggleStep(3)"><span class="step-number">3</span><span class="step-title" data-i18n="step3_title">Настройка копирования и пополнение счёта</span><label class="step-checkbox-label"><input type="checkbox" class="checkbox" onclick="completeStep(3, event)"><span data-i18n="step3_checkbox">Выполнено</span></label></div>
         <div class="step-body">
-            <ul>
-                <li>Введите сумму инвестирования <strong>в долларах США (USD)</strong> — <strong>не менее $1000</strong>.</li>
-                <li><strong>Обязательно:</strong> откройте «Больше настроек» → включите «Выполнить масштабирование после того, как лидер закроет свои сделки» (остальные параметры не трогать).</li>
-                <li>Прокрутите вниз → в разделе «Счёт»: «Создать новый счёт» → «Копировать» — откроется страница пополнения.</li>
-                <li>Пополните счёт на указанную сумму (не менее $1000).</li>
-                <li>Выберите способ: банковская карта или криптовалюта.</li>
-                <li>Нет нужного способа — система предложит верификацию для разблокировки.</li>
-                <li>После пополнения копирование начнётся автоматически.</li>
-            </ul>
-            <a href="https://account.markets4you.com/ru/copy-trading/leader/10363048/overview" class="action-btn" target="_blank">Открыть профиль лидера</a>
+            <ul><li data-i18n="step3_text1">Введите сумму инвестирования в долларах США (USD) — не менее $1000.</li><li data-i18n="step3_text2">Обязательно: откройте «Больше настроек» → включите «Выполнить масштабирование после того, как лидер закроет свои сделки» (остальные параметры не трогать).</li><li data-i18n="step3_text3">Прокрутите вниз → в разделе «Счёт»: «Создать новый счёт» → «Копировать» — откроется страница пополнения.</li><li data-i18n="step3_text4">Пополните счёт на указанную сумму (не менее $1000).</li><li data-i18n="step3_text5">Выберите способ: банковская карта или криптовалюта.</li><li data-i18n="step3_text6">Нет нужного способа — система предложит верификацию для разблокировки.</li><li data-i18n="step3_text7">После пополнения копирование начнётся автоматически.</li></ul>
+            <a href="https://account.markets4you.com/ru/copy-trading/leader/10363048/overview" class="action-btn" target="_blank" data-link="step3_link">Открыть профиль лидера</a>
         </div>
     </div>
 
-    <!-- Финальное сообщение -->
-    <div class="final-msg" id="finalMsg">
-        🎉 <strong>Вы успешно подключены!</strong><br>
-        Теперь вы можете следить за результатами на сайте брокера или подключить MetaTrader 4 (по желанию).
+    <div class="final-msg" id="finalMsg">🎉 <strong data-i18n="final_title">Вы успешно подключены!</strong><br><span data-i18n="final_text">Теперь вы можете следить за результатами на сайте брокера.</span></div>
+
+    <!-- FAQ -->
+    <div class="faq-block">
+        <div class="faq-title" data-i18n="faq_title">Частые вопросы (FAQ)</div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q1">Почему минимальная сумма пополнения не совпадает с той, что я указал?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a1">У брокера могут быть собственные лимиты на минимальную сумму. Введите максимально близкое значение к желаемому (например, если просили $1000, а брокер позволяет от $2000 — введите $2000). Дальше всё выровняет включённый тумблер масштабирования.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q2">Что такое коэффициент масштабирования? Почему его обязательно включать?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a2">Коэффициент масштабирования автоматически выравнивает объём ваших сделок относительно лидера. Благодаря ему даже если вы пополнили счёт на сумму, отличающуюся от указанной (брокер может установить свой минимум), система пересчитает всё сама. Обязательно включите тумблер «Выполнить масштабирование после того, как лидер закроет свои сделки» в настройках копирования — это главное условие корректной работы.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q3">Что делать, если не пришло письмо с данными от счёта?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a3">Проверьте папку «Спам». Если письма нет — обратитесь в службу поддержки брокера, так как данные от счёта предоставляет именно брокер, а не T-Capital. Мы можем помочь связаться с брокером, если возникнут сложности.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q4">Где я могу следить за результатами торгов?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a4">Самый простой способ — личный кабинет на сайте брокера. Также можно установить MetaTrader 4 (на свой компьютер или смартфон) и подключить счёт к нему по инвесторскому паролю — тогда все сделки будут видны в реальном времени. Дополнительно, в некоторых странах доступно приложение Markets4you — Online Trading.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q5">Какие есть альтернативные способы пополнения?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a5">Доступны банковская карта, электронные кошельки и другие методы. Если вы хотите использовать криптовалюту, но не видите её в списке — пройдите верификацию, и она появится.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q6">Почему не работает копирование?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a6">Торговля ведётся не круглосуточно, а когда есть необходимые рыночные условия и торговые сигналы. Иногда между сделками может пройти несколько дней. Кроме того обратите внимание, что в выходные дни торговля не ведётся. Если в течение нескольких дней у вас не появились сделки, обратитесь в техподдержку T-Capital с номером вашего счёта для уточнения статуса подключения.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q7">Что такое «инвесторский пароль»?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a7">Это пароль для режима просмотра. Он позволяет видеть открытые сделки, историю и баланс, но не даёт возможности торговать или выводить средства. Выдаётся в письме вместе с логином и сервером.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q8">Могу ли я вывести средства в любой момент?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a8">Да, средства принадлежат вам. Для вывода требуется пройти верификацию (если ещё не сделали), после чего можно выводить любым доступным способом. Средства всегда на вашем счёте под вашим контролем с доступом и возможностью вывода 24/7.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q9">Что такое кредитное плечо и какой тип счёта нужен для копирования?</span><span class="faq-arrow">▶</span></div><div class="faq-answer" data-i18n="faq_a9">Кредитное плечо — это инструмент, который позволяет торговать объёмом, превышающим ваш депозит. Но не бойтесь: это никакой не кредит и никакие обязательства на вас не переходят — их попросту нет. Это всего лишь термин, а не кредит в прямом его понимании. Выбирать стоит максимально возможное в копитрейдинге плечо 1:2000, потому что оно в два раза снижает требования к залогу и освобождает больше капитала для удержания просадок. При этом риски не увеличиваются, если вы торгуете тем же объёмом (лотом). Для копирования подходит счёт типа Classic Pro с плечом 1:2000.</div></div>
     </div>
 
-    <!-- Блок МТ4 -->
-    <div class="mt4-block" id="mt4Block">
-        <div class="mt4-header">📱 Подключение счёта к MetaTrader 4 (необязательно)</div>
-        <div class="mt4-body">
-            <p>На указанную при регистрации электронную почту придёт письмо (возможно в спам) с данными от нового счёта. Вам понадобятся:</p>
-            <ul>
-                <li><strong>Логин</strong> (номер счёта)</li>
-                <li><strong>Инвесторский пароль</strong> (только для чтения)</li>
-                <li><strong>Название сервера</strong> (например: EGlobalTrade-Classic3)</li>
-            </ul>
-            <p>Скачайте платформу для вашего устройства:</p>
-            <div>
-                <a class="btn-download" href="https://download.mql5.com/cdn/web/eglobal.trade.and/mt4/eglobal4setup.exe" target="_blank">💻 Windows</a>
-                <a class="btn-download" href="https://apps.apple.com/us/app/metatrader-4/id496212596" target="_blank">🍎 iOS</a>
-                <a class="btn-download" href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader4" target="_blank">🤖 Android</a>
+    <div class="footer">
+        <div class="footer-header" data-i18n="footer_header">Связь и подписка</div>
+        <div class="footer-body">
+            <div class="support-line"><span data-i18n="support_label">🆘 Техподдержка:</span> <a href="https://t.me/tcapital_support" target="_blank">@tcapital_support</a></div>
+            <div class="social-links"><p data-i18n="social_text">Следите за обновлениями и аналитикой:</p>
+                <a class="btn-social btn-youtube" href="https://www.youtube.com/@tcapital_global" target="_blank"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg><span data-i18n="social_youtube">YouTube</span></a>
+                <a class="btn-social btn-telegram" href="https://t.me/tcapital_global" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.5 8.4l-1.8 8.6c-.1.7-.6.8-1.1.5l-3.6-2.6-1.7 1.6c-.2.2-.4.4-.8.4l.1-3.6 6.3-5.7c.3-.2-.1-.4-.5-.2l-8.1 5.1-3.4-1.1c-.7-.2-.7-.7.2-1.1l13.2-5.1c.6-.2 1.1.2.9 1.1z"/></svg><span data-i18n="social_telegram">Telegram</span></a>
             </div>
-            <div style="background:#f9f9f9; padding:10px; border-radius:6px; margin-top:15px;">
-                <strong>Как подключиться (пошагово):</strong>
-                <p><strong>📱 Android:</strong></p>
-                <ul>
-                    <li>Откройте приложение MetaTrader 4.</li>
-                    <li>Нажмите меню ≡ (слева вверху) ➔ «Управление счетами» ➔ значок «+».</li>
-                    <li>Выберите «Подключиться к существующему счету».</li>
-                    <li>В строке поиска введите название Сервера и выберите его из списка.</li>
-                    <li>Укажите Логин и Инвесторский пароль ➔ нажмите «Войти».</li>
-                </ul>
-                <p><strong>🍎 iOS (iPhone):</strong></p>
-                <ul>
-                    <li>Откройте приложение MetaTrader 4.</li>
-                    <li>Перейдите в «Настройки» (внизу справа) ➔ нажмите на «Торговый счет» ➔ значок «+».</li>
-                    <li>Выберите «Подключиться к существующему счету».</li>
-                    <li>В поиске найдите и выберите название Сервера.</li>
-                    <li>Укажите Логин и Инвесторский пароль ➔ нажмите «Войти».</li>
-                </ul>
-                <p><strong>💻 Windows (ПК):</strong></p>
-                <ul>
-                    <li>Запустите терминал MetaTrader 4.</li>
-                    <li>В верхнем левом меню нажмите Файл ➔ «Подключиться к торговому счету».</li>
-                    <li>Введите Логин и Инвесторский пароль.</li>
-                    <li>В поле Сервер выберите нужный сервер из списка (или введите его имя вручную).</li>
-                    <li>Нажмите «Логин».</li>
-                </ul>
-            </div>
-            <p style="margin-top:15px;">💡 <strong>Примечание:</strong> Инвесторский пароль обеспечивает безопасность. Вы сможете в реальном времени видеть открытые позиции, историю сделок и баланс, но функции открытия/закрытия сделок и вывода средств с этим паролем заблокированы.</p>
         </div>
     </div>
-
-    <div class="support">🆘 <strong>Техподдержка:</strong> <a href="https://t.me/tcapital_support" target="_blank">@tcapital_support</a></div>
 </div>
 
 <script>
     let steps = [false, false, false];
+    const translations = {
+        ru: {
+            title: "T-Capital — инструкция по подключению к копитрейдингу",
+            intro_title: "Вводная информация:",
+            intro_text: "Чтобы подключиться к сервису копирования сделок, нужно зарегистрироваться у брокера, настроить правила копирования, создать счёт и пополнить его на сумму от $1000. После пополнения копирование начнётся автоматически.",
+            howto_title: "Как пользоваться инструкцией:",
+            howto_text: "последовательно выполняйте шаги. После завершения каждого шага отметьте галочку «Выполнено» в его заголовке — это автоматически откроет следующий шаг.",
+            faq_note_label: "Рекомендуем",
+            faq_note_text: "перед началом подключения ознакомиться с разделом FAQ — там собраны ответы на частые вопросы.",
+            step1_title: "Регистрация у брокера",
+            step1_checkbox: "Выполнено",
+            step1_text1: "Укажите страну проживания, электронную почту и пароль.",
+            step1_text2: "Либо авторизуйтесь через аккаунт Google/Facebook.",
+            step1_warning: "⚠️ Нет вашей страны в списке? — выберите ближайшую; при проверке документов система укажет верную.",
+            step1_link: "Перейти к регистрации",
+            step2_title: "Верификация",
+            step2_checkbox: "Выполнено",
+            step2_warning1: "⚠️ Требования по верификации зависят от страны: где-то нужно пройти сразу, где-то — только при пополнении счёта. Если после перехода ничего не увидите — не пугайтесь, для вас верификация будет на этапе пополнения.",
+            step2_warning2: "⚠️ Планируете пополнять криптовалютой? Верификацию можно пройти позже — при первом выводе средств.",
+            step2_text1: "Подтвердите личность: паспорт или водительское удостоверение.",
+            step2_text2: "Подтвердите адрес: любой документ с ФИО и адресом (коммунальные счета, интернет, мобильная связь, банковская выписка).",
+            step2_link: "Пройти верификацию",
+            step3_title: "Настройка копирования и пополнение счёта",
+            step3_checkbox: "Выполнено",
+            step3_text1: "Введите сумму инвестирования в долларах США (USD) — не менее $1000.",
+            step3_text2: "Обязательно: откройте «Больше настроек» → включите «Выполнить масштабирование после того, как лидер закроет свои сделки» (остальные параметры не трогать).",
+            step3_text3: "Прокрутите вниз → в разделе «Счёт»: «Создать новый счёт» → «Копировать» — откроется страница пополнения.",
+            step3_text4: "Пополните счёт на указанную сумму (не менее $1000).",
+            step3_text5: "Выберите способ: банковская карта или криптовалюта.",
+            step3_text6: "Нет нужного способа — система предложит верификацию для разблокировки.",
+            step3_text7: "После пополнения копирование начнётся автоматически.",
+            step3_link: "Открыть профиль лидера",
+            final_title: "Вы успешно подключены!",
+            final_text: "Теперь вы можете следить за результатами на сайте брокера.",
+            faq_title: "Частые вопросы (FAQ)",
+            faq_q1: "Почему минимальная сумма пополнения не совпадает с той, что я указал?",
+            faq_a1: "У брокера могут быть собственные лимиты на минимальную сумму. Введите максимально близкое значение к желаемому (например, если просили $1000, а брокер позволяет от $2000 — введите $2000). Дальше всё выровняет включённый тумблер масштабирования.",
+            faq_q2: "Что такое коэффициент масштабирования? Почему его обязательно включать?",
+            faq_a2: "Коэффициент масштабирования автоматически выравнивает объём ваших сделок относительно лидера. Благодаря ему даже если вы пополнили счёт на сумму, отличающуюся от указанной (брокер может установить свой минимум), система пересчитает всё сама. Обязательно включите тумблер «Выполнить масштабирование после того, как лидер закроет свои сделки» в настройках копирования — это главное условие корректной работы.",
+            faq_q3: "Что делать, если не пришло письмо с данными от счёта?",
+            faq_a3: "Проверьте папку «Спам». Если письма нет — обратитесь в службу поддержки брокера, так как данные от счёта предоставляет именно брокер, а не T-Capital. Мы можем помочь связаться с брокером, если возникнут сложности.",
+            faq_q4: "Где я могу следить за результатами торгов?",
+            faq_a4: "Самый простой способ — личный кабинет на сайте брокера. Также можно установить MetaTrader 4 (на свой компьютер или смартфон) и подключить счёт к нему по инвесторскому паролю — тогда все сделки будут видны в реальном времени. Дополнительно, в некоторых странах доступно приложение Markets4you — Online Trading.",
+            faq_q5: "Какие есть альтернативные способы пополнения?",
+            faq_a5: "Доступны банковская карта, электронные кошельки и другие методы. Если вы хотите использовать криптовалюту, но не видите её в списке — пройдите верификацию, и она появится.",
+            faq_q6: "Почему не работает копирование?",
+            faq_a6: "Торговля ведётся не круглосуточно, а когда есть необходимые рыночные условия и торговые сигналы. Иногда между сделками может пройти несколько дней. Кроме того обратите внимание, что в выходные дни торговля не ведётся. Если в течение нескольких дней у вас не появились сделки, обратитесь в техподдержку T-Capital с номером вашего счёта для уточнения статуса подключения.",
+            faq_q7: "Что такое «инвесторский пароль»?",
+            faq_a7: "Это пароль для режима просмотра. Он позволяет видеть открытые сделки, историю и баланс, но не даёт возможности торговать или выводить средства. Выдаётся в письме вместе с логином и сервером.",
+            faq_q8: "Могу ли я вывести средства в любой момент?",
+            faq_a8: "Да, средства принадлежат вам. Для вывода требуется пройти верификацию (если ещё не сделали), после чего можно выводить любым доступным способом. Средства всегда на вашем счёте под вашим контролем с доступом и возможностью вывода 24/7.",
+            faq_q9: "Что такое кредитное плечо и какой тип счёта нужен для копирования?",
+            faq_a9: "Кредитное плечо — это инструмент, который позволяет торговать объёмом, превышающим ваш депозит. Но не бойтесь: это никакой не кредит и никакие обязательства на вас не переходят — их попросту нет. Это всего лишь термин, а не кредит в прямом его понимании. Выбирать стоит максимально возможное в копитрейдинге плечо 1:2000, потому что оно в два раза снижает требования к залогу и освобождает больше капитала для удержания просадок. При этом риски не увеличиваются, если вы торгуете тем же объёмом (лотом). Для копирования подходит счёт типа Classic Pro с плечом 1:2000.",
+            footer_header: "Связь и подписка",
+            support_label: "🆘 Техподдержка:",
+            social_text: "Следите за обновлениями и аналитикой:",
+            social_youtube: "YouTube",
+            social_telegram: "Telegram"
+        },
+        en: {
+            title: "T-Capital — Copy Trading Setup Guide",
+            intro_title: "Introduction:",
+            intro_text: "To connect to the copy trading service, you need to register with the broker, configure copy trading rules, create an account, and fund it with at least $1000. After funding, copying starts automatically.",
+            howto_title: "How to use this guide:",
+            howto_text: "Follow the steps sequentially. After completing each step, tick the checkbox 'Done' in its header — this will automatically open the next step.",
+            faq_note_label: "We recommend",
+            faq_note_text: "checking the FAQ section before starting — it contains answers to common questions.",
+            step1_title: "Broker Registration",
+            step1_checkbox: "Done",
+            step1_text1: "Enter your country of residence, email address, and password.",
+            step1_text2: "Or sign in using your Google/Facebook account.",
+            step1_warning: "⚠️ No country in the list? — choose the nearest one; upon document verification, the system will set your correct country.",
+            step1_link: "Go to Registration",
+            step2_title: "Verification",
+            step2_checkbox: "Done",
+            step2_warning1: "⚠️ Verification requirements depend on your country: some need it immediately, others only when funding the account. If you see nothing after clicking, don't worry — for you verification will be required at the funding stage.",
+            step2_warning2: "⚠️ Planning to fund with crypto? Verification can be done later — at first withdrawal.",
+            step2_text1: "Verify your identity: passport or driver's license.",
+            step2_text2: "Verify your address: any document with your name and address (utility bills, internet, mobile phone, bank statement).",
+            step2_link: "Start Verification",
+            step3_title: "Copy Trading Setup and Account Funding",
+            step3_checkbox: "Done",
+            step3_text1: "Enter investment amount in US dollars (USD) — at least $1000.",
+            step3_text2: "Required: open 'More settings' → enable 'Perform scaling after the leader closes their trades' (leave other settings unchanged).",
+            step3_text3: "Scroll down → in the 'Account' section: 'Create new account' → 'Copy' — you will be redirected to the funding page.",
+            step3_text4: "Fund the account with the specified amount (at least $1000).",
+            step3_text5: "Choose your method: bank card or cryptocurrency.",
+            step3_text6: "No suitable method? The system will offer verification to unlock it.",
+            step3_text7: "After funding, copying starts automatically.",
+            step3_link: "Open Leader Profile",
+            final_title: "You are successfully connected!",
+            final_text: "Now you can monitor your results on the broker's website.",
+            faq_title: "Frequently Asked Questions (FAQ)",
+            faq_q1: "Why doesn't the minimum deposit amount match the one I specified?",
+            faq_a1: "The broker may have its own minimum deposit limits. Enter the closest possible value to your desired one (e.g., if you wanted $1000 but the broker allows $2000 minimum — enter $2000). The scaling toggle will adjust everything automatically.",
+            faq_q2: "What is the scaling coefficient? Why must I enable it?",
+            faq_a2: "The scaling coefficient automatically adjusts your trade volume relative to the leader. Even if you funded a different amount than specified (the broker may set its own minimum), the system recalculates everything. Be sure to enable the toggle 'Perform scaling after the leader closes their trades' in copy trading settings — this is essential for correct operation.",
+            faq_q3: "What should I do if I don't receive an email with account details?",
+            faq_a3: "Check your 'Spam' folder. If no email is found, contact the broker's support — account data is provided by the broker, not by T-Capital. We can help you contact the broker if needed.",
+            faq_q4: "Where can I monitor my trading results?",
+            faq_a4: "The easiest way is through the broker's client area. You can also install MetaTrader 4 (on your computer or smartphone) and connect your account using the investor password — all trades will be visible in real time. Additionally, the Markets4you — Online Trading app is available in some countries.",
+            faq_q5: "What alternative deposit methods are available?",
+            faq_a5: "Bank cards, e-wallets, and other methods are available. If you want to use cryptocurrency but don't see it in the list — complete verification and it will appear.",
+            faq_q6: "Why isn't copy trading working?",
+            faq_a6: "Trading does not run 24/7 — it happens when market conditions and trading signals are present. Sometimes several days may pass between trades. Also, note that no trading occurs on weekends. If no trades appear for several days, contact T-Capital support with your account number to check connection status.",
+            faq_q7: "What is an 'investor password'?",
+            faq_a7: "This is a view-only password. It allows you to see open trades, history, and balance, but does not allow trading or withdrawing funds. It is provided in the email along with your login and server.",
+            faq_q8: "Can I withdraw funds at any time?",
+            faq_a8: "Yes, the funds belong to you. Withdrawal requires verification (if not done yet), after which you can withdraw using any available method. Funds are always in your account under your control with 24/7 access and withdrawal capability.",
+            faq_q9: "What is leverage and which account type is needed for copy trading?",
+            faq_a9: "Leverage is a tool that allows you to trade with a volume exceeding your deposit. Don't worry — it's not a loan, and no obligations fall on you. It's just a term, not a loan in the literal sense. Choose the maximum leverage available in copy trading — 1:2000 — because it halves margin requirements and frees up more capital to hold through drawdowns. Risks do not increase if you trade the same volume (lot). For copy trading, use a Classic Pro account with 1:2000 leverage.",
+            footer_header: "Contact and Subscribe",
+            support_label: "🆘 Support:",
+            social_text: "Follow us for updates and analytics:",
+            social_youtube: "YouTube",
+            social_telegram: "Telegram"
+        },
+        es: {
+            title: "T-Capital — Guía de conexión al copy trading",
+            intro_title: "Información introductoria:",
+            intro_text: "Para conectarse al servicio de copy trading, debe registrarse en el bróker, configurar las reglas de copiado, crear una cuenta y depositarla con al menos $1000. Después del depósito, el copiado comienza automáticamente.",
+            howto_title: "Cómo usar esta guía:",
+            howto_text: "Siga los pasos de forma secuencial. Después de completar cada paso, marque la casilla «Hecho» en su encabezado; esto abrirá automáticamente el siguiente paso.",
+            faq_note_label: "Recomendamos",
+            faq_note_text: "revisar la sección FAQ antes de comenzar — allí están las respuestas a preguntas frecuentes.",
+            step1_title: "Registro en el bróker",
+            step1_checkbox: "Hecho",
+            step1_text1: "Indique su país de residencia, correo electrónico y contraseña.",
+            step1_text2: "O inicie sesión con su cuenta de Google/Facebook.",
+            step1_warning: "⚠️ ¿No está su país en la lista? — elija el más cercano; al verificar los documentos, el sistema establecerá su país correcto.",
+            step1_link: "Ir al registro",
+            step2_title: "Verificación",
+            step2_checkbox: "Hecho",
+            step2_warning1: "⚠️ Los requisitos de verificación dependen del país: algunos lo necesitan de inmediato, otros solo al depositar fondos. Si no ve nada después de hacer clic, no se preocupe; para usted la verificación será en la etapa de depósito.",
+            step2_warning2: "⚠️ ¿Planea depositar con criptomonedas? La verificación puede hacerse más tarde, en el primer retiro.",
+            step2_text1: "Verifique su identidad: pasaporte o licencia de conducir.",
+            step2_text2: "Verifique su dirección: cualquier documento con su nombre y dirección (recibos de servicios públicos, internet, teléfono móvil, extracto bancario).",
+            step2_link: "Iniciar verificación",
+            step3_title: "Configuración del copy trading y depósito",
+            step3_checkbox: "Hecho",
+            step3_text1: "Ingrese el monto de inversión en dólares estadounidenses (USD) — al menos $1000.",
+            step3_text2: "Obligatorio: abra «Más ajustes» → active «Realizar escalado después de que el líder cierre sus operaciones» (no toque los demás parámetros).",
+            step3_text3: "Desplácese hacia abajo → en la sección «Cuenta»: «Crear nueva cuenta» → «Copiar» — se abrirá la página de depósito.",
+            step3_text4: "Deposite el monto especificado (al menos $1000).",
+            step3_text5: "Elija su método: tarjeta bancaria o criptomoneda.",
+            step3_text6: "¿No hay método disponible? El sistema ofrecerá verificación para desbloquearlo.",
+            step3_text7: "Después del depósito, el copiado comienza automáticamente.",
+            step3_link: "Abrir perfil del líder",
+            final_title: "¡Se ha conectado con éxito!",
+            final_text: "Ahora puede monitorear sus resultados en el sitio web del bróker.",
+            faq_title: "Preguntas frecuentes (FAQ)",
+            faq_q1: "¿Por qué el monto mínimo de depósito no coincide con el que especifiqué?",
+            faq_a1: "El bróker puede tener sus propios límites mínimos. Ingrese el valor más cercano al deseado (por ejemplo, si quería $1000 pero el bróker permite desde $2000 — ingrese $2000). El interruptor de escalado ajustará todo automáticamente.",
+            faq_q2: "¿Qué es el coeficiente de escalado? ¿Por qué debo activarlo?",
+            faq_a2: "El coeficiente de escalado ajusta automáticamente el volumen de sus operaciones en relación con el líder. Incluso si depositó un monto diferente al especificado (el bróker puede establecer su propio mínimo), el sistema recalcula todo. Asegúrese de activar el interruptor «Realizar escalado después de que el líder cierre sus operaciones» en la configuración de copy trading — es esencial para un funcionamiento correcto.",
+            faq_q3: "¿Qué hago si no recibo el correo con los datos de la cuenta?",
+            faq_a3: "Revise la carpeta de «Spam». Si no encuentra el correo, contacte con el soporte del bróker — los datos de la cuenta los proporciona el bróker, no T-Capital. Podemos ayudarle a contactar con el bróker si es necesario.",
+            faq_q4: "¿Dónde puedo seguir los resultados de mis operaciones?",
+            faq_a4: "La forma más fácil es en el área de cliente del bróker. También puede instalar MetaTrader 4 (en su computadora o teléfono inteligente) y conectar su cuenta usando la contraseña de inversor — todas las operaciones serán visibles en tiempo real. Además, en algunos países está disponible la aplicación Markets4you — Online Trading.",
+            faq_q5: "¿Qué métodos alternativos de depósito están disponibles?",
+            faq_a5: "Están disponibles tarjetas bancarias, monederos electrónicos y otros métodos. Si desea usar criptomonedas pero no las ve en la lista — complete la verificación y aparecerán.",
+            faq_q6: "¿Por qué no funciona el copy trading?",
+            faq_a6: "El trading no funciona las 24 horas — ocurre cuando hay condiciones de mercado y señales de trading. A veces pueden pasar varios días entre operaciones. Además, tenga en cuenta que los fines de semana no hay operaciones. Si no aparecen operaciones durante varios días, contacte con el soporte de T-Capital con su número de cuenta para verificar el estado de la conexión.",
+            faq_q7: "¿Qué es la «contraseña de inversor»?",
+            faq_a7: "Es una contraseña de solo visualización. Permite ver operaciones abiertas, historial y saldo, pero no permite operar ni retirar fondos. Se proporciona en el correo junto con su login y servidor.",
+            faq_q8: "¿Puedo retirar fondos en cualquier momento?",
+            faq_a8: "Sí, los fondos le pertenecen. Para retirar, debe completar la verificación (si aún no lo ha hecho), después de lo cual puede retirar por cualquier método disponible. Los fondos siempre están en su cuenta bajo su control con acceso y retiro 24/7.",
+            faq_q9: "¿Qué es el apalancamiento y qué tipo de cuenta se necesita para el copy trading?",
+            faq_a9: "El apalancamiento es una herramienta que permite operar con un volumen superior a su depósito. Pero no se preocupe: no es un préstamo y no asume ninguna obligación. Es solo un término, no un préstamo en sentido literal. Elija el apalancamiento máximo disponible en copy trading — 1:2000 — porque reduce a la mitad los requisitos de margen y libera más capital para soportar caídas. Los riesgos no aumentan si opera con el mismo volumen (lote). Para copy trading, use una cuenta Classic Pro con apalancamiento 1:2000.",
+            footer_header: "Contacto y suscripción",
+            support_label: "🆘 Soporte:",
+            social_text: "Síguenos para novedades y análisis:",
+            social_youtube: "YouTube",
+            social_telegram: "Telegram"
+        }
+    };
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.lang-btn[onclick="setLanguage('${lang}')"]`).classList.add('active');
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) el.textContent = translations[lang][key];
+        });
+        const linkMap = {
+            step1_link: { base: "https://account.markets4you.com/{lang}/user-registration/?affid=atpl6al", lang: lang },
+            step2_link: { base: "https://account.markets4you.com/{lang}/user/settings/verification/sumsub", lang: lang },
+            step3_link: { base: "https://account.markets4you.com/{lang}/copy-trading/leader/10363048/overview", lang: lang }
+        };
+        document.querySelectorAll('[data-link]').forEach(link => {
+            const key = link.getAttribute('data-link');
+            if (linkMap[key]) link.href = linkMap[key].base.replace('{lang}', lang);
+        });
+        localStorage.setItem('instruction_lang', lang);
+    }
 
     function init() {
-        // Все шаги кроме первого — заблокированы
-        for (let i = 2; i <= 3; i++) {
-            document.getElementById('step' + i).classList.add('locked');
-        }
+        // Шаг 1 уже открыт в HTML (class="step open"), JS поддерживает его, чтобы не закрыть при перезагрузке
         document.getElementById('step1').classList.add('open');
         document.getElementById('step1').classList.remove('locked');
+        document.getElementById('step2').classList.add('locked');
+        document.getElementById('step3').classList.add('locked');
     }
 
     function toggleStep(step) {
         const stepEl = document.getElementById('step' + step);
-        // Если шаг выполнен или заблокирован — клик игнорируем
-        if (stepEl.classList.contains('completed') || stepEl.classList.contains('locked')) return;
-        
-        // Если шаг открыт — закрываем
+        if (stepEl.classList.contains('locked') || stepEl.classList.contains('completed')) return;
         if (stepEl.classList.contains('open')) {
             stepEl.classList.remove('open');
         } else {
-            // Закрываем все шаги, открываем выбранный
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById('step' + i).classList.remove('open');
-            }
+            for (let i = 1; i <= 3; i++) document.getElementById('step' + i).classList.remove('open');
             stepEl.classList.add('open');
         }
     }
 
     function completeStep(step, event) {
-        event.stopPropagation(); // не переключать открытие/закрытие
+        event.stopPropagation();
         const checked = event.target.checked;
-        steps[step - 1] = checked;
-
-        const stepEl = document.getElementById('step' + step);
-
         if (checked) {
-            // Отметили выполнение — шаг становится завершённым, сворачивается
+            for (let i = 1; i < step; i++) {
+                if (!steps[i - 1]) { event.target.checked = false; return; }
+            }
+        }
+        steps[step - 1] = checked;
+        const stepEl = document.getElementById('step' + step);
+        if (checked) {
             stepEl.classList.add('completed');
             stepEl.classList.remove('open');
-
-            // Открываем следующий шаг, если есть
             if (step < 3) {
                 const nextStep = document.getElementById('step' + (step + 1));
                 nextStep.classList.remove('locked');
                 nextStep.classList.add('open');
             }
         } else {
-            // Сняли галочку — снимаем выполнение, сбрасываем все последующие шаги
             stepEl.classList.remove('completed');
-            // Открываем текущий шаг, чтобы можно было снова отметить
             stepEl.classList.add('open');
-
-            // Сбрасываем все последующие шаги
             for (let i = step + 1; i <= 3; i++) {
                 const nextEl = document.getElementById('step' + i);
                 nextEl.classList.remove('completed');
                 nextEl.classList.remove('open');
                 nextEl.classList.add('locked');
-                // Сбрасываем чекбокс
                 const checkbox = nextEl.querySelector('.checkbox');
                 checkbox.checked = false;
                 steps[i - 1] = false;
             }
         }
-
         updateProgress();
     }
 
@@ -462,19 +399,28 @@
         let total = 3;
         let percent = (completedCount / total) * 100;
         document.getElementById('progressFill').style.width = percent + '%';
-        document.getElementById('progressText').innerText = completedCount + ' / ' + total + ' шагов';
-
+        document.getElementById('progressText').innerText = completedCount + ' / ' + total;
         if (completedCount === 3) {
             document.getElementById('finalMsg').classList.add('show');
-            document.getElementById('mt4Block').style.display = 'block';
         } else {
             document.getElementById('finalMsg').classList.remove('show');
-            document.getElementById('mt4Block').style.display = 'none';
         }
     }
 
-    init();
-    updateProgress();
+    function toggleFaq(element) {
+        const item = element.parentElement;
+        item.classList.toggle('open');
+        const arrow = item.querySelector('.faq-arrow');
+        if (arrow) arrow.style.transform = item.classList.contains('open') ? 'rotate(90deg)' : '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('instruction_lang');
+        if (savedLang) setLanguage(savedLang);
+        else setLanguage('ru');
+        init();
+        updateProgress();
+    });
 </script>
 </body>
 </html>
